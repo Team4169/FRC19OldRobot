@@ -34,6 +34,7 @@ import frc.commands.DriveRightCommand;
 import frc.commands.DriveStraightCommand;
 import frc.commands.DriveWithJoystick;
 import frc.commands.GetRouteToTarget;
+import frc.commands.VectorDriveFromDash;
 import frc.commands.DriveRouteToTarget;
 import frc.commands.AbortCommand;
 
@@ -46,7 +47,8 @@ public class OI {
   private double m_drivePower = 0.2d;   // default drive power
   private double m_maxTime = 10.0;      // max command time (secs)
   private double m_driveAngle = 90.0;   // angle to drive to (deg)
-  private double m_driveDist = 12.0;    // distance to drive to (in)
+  private double m_driveDist = 24.0;    // distance to drive to (in)
+  private double m_driveVel = 24.0;     // max drive velociy (in/sec)
   private Robot m_robot;
   private XboxController m_ctl;
   private AbortCommand m_abortCmd;
@@ -67,6 +69,7 @@ public class OI {
     m_maxTime = SmartDashboard.getNumber("Max Time", m_maxTime);
     m_driveAngle = SmartDashboard.getNumber("Drive Angle", m_driveAngle);
     m_driveDist = SmartDashboard.getNumber("Drive Dist", m_driveDist);
+    m_driveVel = SmartDashboard.getNumber("Drive Vel", m_driveVel);
     SmartDashboard.putNumber("Angle", nav.yawToFieldAngle(nav.getYaw()));
 
     aBut = new JoystickButton(m_ctl, 1);
@@ -84,7 +87,7 @@ public class OI {
     SmartDashboard.putData("DriveStraight", new DriveStraightCommand(m_maxTime, dtr));
     SmartDashboard.putData("Route", new GetRouteToTarget(nav));
     SmartDashboard.putData("Drive to Target", new DriveRouteToTarget(dtr, nav));
-
+    SmartDashboard.putData("Vector Drive", new VectorDriveFromDash(dtr, nav));
 
     dtr.setDefaultCommand(new DriveWithJoystick(dtr, m_ctl));
   }
