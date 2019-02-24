@@ -92,7 +92,12 @@ public class Limelight {
 	}
 	
 	public double getDist() {
-		// TODO might divide by zero
+		double centYAngle = Math.toRadians(getTy());
+		if (centYAngle <= -ANGLE_FROM_HORIZONTAL) {
+			// Impossible case; don't divide by zero or return
+			// garbage.  Throw a slightly more useful exception.
+			throw new IllegalStateException("Target is at or below the horizon; can't compute distance");
+		}
 		return (targetHeight-HEIGHT)/Math.tan(Math.toRadians(getTy() + ANGLE_FROM_HORIZONTAL));
 	}
 	/**
