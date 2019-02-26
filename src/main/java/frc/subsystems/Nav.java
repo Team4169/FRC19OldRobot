@@ -41,7 +41,7 @@ public class Nav extends Subsystem {
    * @param yaw Yaw in degrees
    * @return Field angle in degrees
    */
-  public double yawToFieldAngle(double yaw) {
+  public static double yawToFieldAngle(double yaw) {
 
     double fieldAngle = 90.0 - yaw;
     if (fieldAngle > 180.0d) {
@@ -58,32 +58,52 @@ public class Nav extends Subsystem {
    * @param yaw Yaw in degrees
    * @return Robot unit vector
    */
-  private Vec2d yawToVec(double yaw) {
+  public static  Vec2d yawToVec(double yaw) {
   
     double fieldAngle = yawToFieldAngle(yaw);
     return Vec2d.makePolar(1.0, Math.toRadians(fieldAngle));
   }
 
+  /**
+   * Get the yaw angle as returned by the gyro.
+   * @Return gyro yaw angle in degrees, positive clockwise
+   */
   public double getYaw() {
     return m_gyro.getAngle();
   }
 
+  /**
+   * Linear acceleration in the X direction.
+   * @Return linear acceleration in X direction
+   */
   public double getWorldLinearAccelX() {
     return 0.0;       // Can't do with this gyro!
   }
 
+  /**
+   * Linear acceleration in the Y direction.
+   * @Return linear acceleration in Y direction
+   */
   public double getWorldLinearAccelY() {
     return 0.0;        // Can't do with this gyro!
   }
 
+  /**
+   * Get a 2-d field-relative unit vector representing
+   * this robot's orientation.  It's based on the yaw
+   * as returned by the gyro, converted to a field-relative
+   * angle and then to a vector.
+   * @return 2-d field-relative unit vector for this robot
+   */
   public Vec2d getRobotVec() {
     return yawToVec(getYaw());
   }
 
-  public Vec2d getTargVec(Vec2d roboVec) {
-    return Vec2d.makeCart(0.0d, -1.0d);
-  }
-
+  /**
+   * Return the gyro as a PID source, so it can be used
+   * in PIDController calculations.
+   * @return Gyro as a PID source
+   */
   public PIDSource getPIDSource() {
     return m_gyro;
   }

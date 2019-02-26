@@ -70,7 +70,7 @@ public class OI {
     m_driveAngle = SmartDashboard.getNumber("Drive Angle", m_driveAngle);
     m_driveDist = SmartDashboard.getNumber("Drive Dist", m_driveDist);
     m_driveVel = SmartDashboard.getNumber("Drive Vel", m_driveVel);
-    SmartDashboard.putNumber("Angle", nav.yawToFieldAngle(nav.getYaw()));
+    SmartDashboard.putNumber("Angle", Nav.yawToFieldAngle(nav.getYaw()));
 
     aBut = new JoystickButton(m_ctl, 1);
     bBut = new JoystickButton(m_ctl, 2);
