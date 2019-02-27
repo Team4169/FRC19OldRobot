@@ -58,10 +58,11 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
-    m_oi = new OI(this);
     ADXRS450_Gyro gyro = new ADXRS450_Gyro();
     m_nav = new Nav(gyro);
     m_driveTrain = new DriveTrain(m_nav);
+
+    m_oi = new OI(this);
   }
 
     /**
