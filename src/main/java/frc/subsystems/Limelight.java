@@ -18,6 +18,9 @@ public class Limelight {
 	public static final double HEIGHT = 10.5;
 	public static final double ANGLE_FROM_HORIZONTAL = 20d; // view angle not mounting angle, in deg
 	public static final double OFFSET_FROM_CENTER = -7.0d; // offset of camera from robot center; positive to right
+	public static final int VISION_PIPE = 0;							// pipeline set up for vision mode
+	public static final int DRIVE_PIPE = 1;								// pipeline set up for driver mode
+
 
 	/**
 	 * Light modes for Limelight.
@@ -35,6 +38,17 @@ public class Limelight {
 	 */
 	public static enum CameraMode {
 		eVision, eDriver
+	}
+
+	/**
+	 * Initialize the Limelight and set it to the "default"
+	 * operating mode.  For now, default operating mode is:
+	 *  -- driver mode
+	 *  -- using the "driver" pipeline
+	 *  -- LEDs off
+	 * 
+	 */
+	public Limelight() {
 	}
 
 	/**
@@ -159,5 +173,23 @@ public class Limelight {
 		// Result is normal vec * -offset (minus because a camera to the left
 		// of center will have a vector pointing clockwise, and vice versa)
 		return normVec.mulScalar(-OFFSET_FROM_CENTER);
+	}
+
+	/**
+	 * Set the Limelight to "driver" mode
+	 */
+	public void driverMode() {
+		setLedMode(LightMode.eOff);
+		setCameraMode(CameraMode.eDriver);
+		setPipeline(DRIVE_PIPE);
+	}
+
+	/**
+	 * Set the Limelight to "vision" mode
+	 */
+	public void visionMode() {
+		setLedMode(LightMode.eOn);
+		setCameraMode(CameraMode.eVision);
+		setPipeline(VISION_PIPE);
 	}
 }

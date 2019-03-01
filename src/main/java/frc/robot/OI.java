@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.subsystems.DriveTrain;
+import frc.subsystems.Limelight;
 import frc.subsystems.Nav;
 import frc.commands.DriveLeftCommand;
 import frc.commands.DriveRightCommand;
@@ -64,6 +65,7 @@ public class OI {
 
     Nav nav = m_robot.getNav();
     DriveTrain dtr = m_robot.getDriveTrain();
+    Limelight cam = m_robot.getCam();
 
     m_drivePower = SmartDashboard.getNumber("Drive Power", m_drivePower);
     m_maxTime = SmartDashboard.getNumber("Max Time", m_maxTime);
@@ -79,14 +81,14 @@ public class OI {
     SmartDashboard.putData("Abort All", m_abortCmd);
     aBut.whileHeld(new DriveLeftCommand(m_maxTime, dtr));
     bBut.whileHeld(new DriveRightCommand(m_maxTime, dtr));
-    yBut.whenPressed(new GetRouteToTarget(nav));
+    yBut.whenPressed(new GetRouteToTarget(nav, cam));
     aBut.whileHeld(new DriveStraightCommand(m_maxTime, dtr));
     xBut.whenPressed(m_abortCmd);
     SmartDashboard.putData("Drive Left", new DriveLeftCommand(m_maxTime, dtr));
     SmartDashboard.putData("Drive Right", new DriveRightCommand(m_maxTime, dtr));
     SmartDashboard.putData("DriveStraight", new DriveStraightCommand(m_maxTime, dtr));
-    SmartDashboard.putData("Route", new GetRouteToTarget(nav));
-    SmartDashboard.putData("Drive to Target", new DriveRouteToTarget(dtr, nav));
+    SmartDashboard.putData("Route", new GetRouteToTarget(nav, cam));
+    SmartDashboard.putData("Drive to Target", new DriveRouteToTarget(dtr, nav, cam));
     SmartDashboard.putData("Vector Drive", new VectorDriveFromDash(dtr, nav));
 
     dtr.setDefaultCommand(new DriveWithJoystick(dtr, m_ctl));

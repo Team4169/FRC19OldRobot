@@ -32,6 +32,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 
 import frc.subsystems.DriveTrain;
 import frc.subsystems.Nav;
+import frc.subsystems.Limelight;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -48,6 +49,7 @@ public class Robot extends TimedRobot {
   private DriveTrain m_driveTrain;
   private OI m_oi;
   private Nav m_nav;
+  private Limelight m_cam;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -61,6 +63,8 @@ public class Robot extends TimedRobot {
     ADXRS450_Gyro gyro = new ADXRS450_Gyro();
     m_nav = new Nav(gyro);
     m_driveTrain = new DriveTrain(m_nav);
+    m_cam = new Limelight();
+    m_cam.driverMode();
 
     m_oi = new OI(this);
   }
@@ -165,6 +169,10 @@ public class Robot extends TimedRobot {
 
   public Nav getNav() {
     return m_nav;
+  }
+
+  public Limelight getCam() {
+    return m_cam;
   }
   
 }

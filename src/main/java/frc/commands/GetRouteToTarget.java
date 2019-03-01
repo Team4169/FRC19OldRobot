@@ -29,12 +29,10 @@ public class GetRouteToTarget extends Command {
   private boolean m_seen;
   
 
-  public GetRouteToTarget(Nav nav) {
+  public GetRouteToTarget(Nav nav, Limelight cam) {
     super(nav);
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
     m_nav = nav;
-    m_cam = new Limelight();
+    m_cam = cam;
     m_calc = new TargetCalculator(Limelight.HEIGHT, Limelight.ANGLE_FROM_HORIZONTAL);
 
     m_seen = false;
@@ -48,8 +46,7 @@ public class GetRouteToTarget extends Command {
     m_camVec = m_cam.getCameraVector(m_roboVec);
     m_targNorm = TargetVecMapper.getStdTargNorm(m_nav.getYaw());
     m_seen = false;
-    m_cam.setCameraMode(Limelight.CameraMode.eVision);
-    m_cam.setLedMode(Limelight.LightMode.eOn);
+    m_cam.visionMode();
     setTimeout(TIMEOUT);
   }
 
@@ -89,8 +86,7 @@ public class GetRouteToTarget extends Command {
   @Override
   protected void end() {
     System.out.println("GetRouteToTarget turning leds off");
-    m_cam.setCameraMode(Limelight.CameraMode.eDriver);
-    m_cam.setLedMode(Limelight.LightMode.eOff);
+    m_cam.driverMode();
   }
 
   // Called when another command which requires one or more of the same

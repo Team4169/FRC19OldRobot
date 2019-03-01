@@ -55,11 +55,11 @@ public class DriveRouteToTarget extends Command {
    * @param nav The navigation unit used to provide feedback
    * control to drive the robot straight and turn to angle
    */
-  public DriveRouteToTarget(DriveTrain driveTrain, Nav nav) {
+  public DriveRouteToTarget(DriveTrain driveTrain, Nav nav, Limelight cam) {
     super(nav);
     m_driveTrain = driveTrain;
     m_nav = nav;
-    m_cam = new Limelight();
+    m_cam = cam;
     m_calc = new TargetCalculator(Limelight.HEIGHT, Limelight.ANGLE_FROM_HORIZONTAL);
 
     // Create the CommandGroup that we will use to do the actual driving,
@@ -80,8 +80,7 @@ public class DriveRouteToTarget extends Command {
     m_camVec = m_cam.getCameraVector(m_roboVec);
     m_targNorm = TargetVecMapper.getStdTargNorm(m_nav.getYaw());
     m_seen = false;
-    m_cam.setCameraMode(Limelight.CameraMode.eVision);
-    m_cam.setLedMode(Limelight.LightMode.eOn);
+    m_cam.visionMode();
 
     // If we don't find a target in the specified timeout, give up
     setTimeout(TIMEOUT);
@@ -135,9 +134,8 @@ public class DriveRouteToTarget extends Command {
   // driver mode.
   @Override
   protected void end() {
-    System.out.println("GetRouteToTarget turning leds off");
-    m_cam.setCameraMode(Limelight.CameraMode.eDriver);
-    m_cam.setLedMode(Limelight.LightMode.eOff);
+    System.out.println("DriveRouteToTarget turning leds off");
+    m_cam.driverMode();
   }
 
   // Called when another command which requires one or more of the same
