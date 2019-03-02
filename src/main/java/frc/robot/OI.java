@@ -35,6 +35,7 @@ import frc.commands.DriveRightCommand;
 import frc.commands.DriveStraightCommand;
 import frc.commands.DriveWithJoystick;
 import frc.commands.GetRouteToTarget;
+import frc.commands.GetRouteToRocketTarget;
 import frc.commands.VectorDriveFromDash;
 import frc.commands.DriveRouteToTarget;
 import frc.commands.AbortCommand;
@@ -88,6 +89,7 @@ public class OI {
     SmartDashboard.putData("Drive Right", new DriveRightCommand(m_maxTime, dtr));
     SmartDashboard.putData("DriveStraight", new DriveStraightCommand(m_maxTime, dtr));
     SmartDashboard.putData("Route", new GetRouteToTarget(nav, cam));
+    SmartDashboard.putData("RocketRte", new GetRouteToRocketTarget(nav, cam));
     SmartDashboard.putData("Drive to Target", new DriveRouteToTarget(dtr, nav, cam));
     SmartDashboard.putData("Vector Drive", new VectorDriveFromDash(dtr, nav));
 

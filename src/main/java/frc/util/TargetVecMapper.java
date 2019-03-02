@@ -36,7 +36,33 @@ public class TargetVecMapper {
     {-135.0, -45.0, 0.0}
   };
 
-  /**
+  /** These are the normal vectors to the 'rocket' targets:
+   * those on the hatch ports of the rockets (located at +-61 deg from the field
+   * center)
+   */
+  static final Vec2d[] rocketTargets = {
+    Vec2d.makePolar(1.0, Math.toRadians(119.0d)),
+    Vec2d.makePolar(1.0, Math.toRadians(-119.0d)),
+    Vec2d.makePolar(1.0, Math.toRadians(-61.0d)),
+    Vec2d.makePolar(1.0, Math.toRadians(61.0d))
+  };
+
+  /** These are the robot angle ranges corresponding to the
+   * associated rocket target normal vectors.  If the robot's field-relative heading
+   * is in the associated range, and a target is in view, its rocket target normal has
+   * the specified index in the rocketTargets table.Headings are in degrees from -180
+   * to +180.
+   */
+  static final double[][] rocketTargetMapping = {
+    {0.0, 90.0, 1.0},
+    {90.0, 180.0, 0.0},
+    {-90.0, 0.0, 2.0},
+    {-180.0, -90.0, 3.0}
+  };
+
+
+
+    /**
    * Find the target normal for the standard target that's in view from the given yaw
    * angle.  Only one such target should be in view.
    */
@@ -49,5 +75,20 @@ public class TargetVecMapper {
     }
     throw new RuntimeException("Could not find standard target for yaw " + yaw);
   }
+
+    /**
+   * Find the target normal for the rocket target that's in view from the given yaw
+   * angle.  Only one such target should be in view.
+   */
+  public static Vec2d getRocketTargNorm(double yaw){
+ 
+    for (double[] mpg: rocketTargetMapping) {
+      if ((yaw >= mpg[0]) && (yaw <= mpg[1])) {
+        return rocketTargets[(int)mpg[2]];
+      }
+    }
+    throw new RuntimeException("Could not find rocket target for yaw " + yaw);
+  }
+
 
 }
