@@ -158,8 +158,31 @@ public class Vec2d {
       public Vec2d getNormal() {
           return new Vec2d(m_y, -m_x);
       }
+
+    /**
+     * Compute the dot product of this vector with the
+     * specified vector.  The dot product is a scalar,
+     * defined mathematically as |a||b|cos theta 
+     * where theta is the angle between a and b.
+     * Computationally it's just (a.x*b.x) + (a.y*b.y)
+     * @param o The other vector 
+     * @return Dot product of this vector and o
+     */
+    public double dotProduct(Vec2d o) {
+        return ((m_x * o.m_x) + (m_y * o.m_y));
+    }
+
+    /**
+     * Return the additive inverse of this vector.
+     * Mathematically, a + a.negate() should equal
+     * the zero vector.
+     * @return Additive inverse of this vector
+     */
+    public Vec2d negate() {
+        return new Vec2d(-m_x, -m_y);
+    }
      
-     /**
+    /**
       * Return true iff the specified vector is "near" this one.
       * "Nearness" is defined in terms of distance i.e. 
       *   abs(o - this) <= epsilon

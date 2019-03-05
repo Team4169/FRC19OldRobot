@@ -222,15 +222,6 @@ public class Vec2dTest {
         assertEquals(expResult, result);
   }
 
-  // These should be methods of Vec2d, but not at this time
-  private double dotProduct(Vec2d a, Vec2d b) {
-      return ((a.getX() * b.getX()) + (a.getY() * b.getY()));
-  }
-
-  private Vec2d negate(Vec2d a) {
-      return Vec2d.ZERO.sub(a);
-  }
-
   /**
    * Test of getNormal() method, of class Vec2d
    */
@@ -244,20 +235,20 @@ public class Vec2dTest {
     assertEquals(expResult, result);
 
     // Verify dot product is zero
-    double dotProd = dotProduct(j, result);
+    double dotProd = j.dotProduct(result);
     assertEquals(0.0d, dotProd, EPS);
 
     result = i.getNormal();
-    expResult = negate(j);
+    expResult = j.negate();
     assertEquals(expResult, result);
 
-    dotProd = dotProduct(i, result);
+    dotProd = i.dotProduct(result);
     assertEquals(0.0d, dotProd, EPS);
 
     Vec2d fivePiOverFour = Vec2d.makePolar(1.0d, 5.0d*Math.PI/4.0d);
     result = fivePiOverFour.getNormal();
     expResult = Vec2d.makePolar(1.0d, 3.0d*Math.PI/4.0d);
-    dotProd = dotProduct(fivePiOverFour, result);
+    dotProd = fivePiOverFour.dotProduct(result);
     assertEquals(0.0d, dotProd, EPS);
   }
 
