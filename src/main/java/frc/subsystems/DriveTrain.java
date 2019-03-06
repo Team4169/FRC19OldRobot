@@ -85,6 +85,9 @@ public class DriveTrain extends Subsystem implements PIDOutput {
     m_rightBack.configFactoryDefault();
     m_leftBack.setNeutralMode(NeutralMode.Brake);
     m_rightBack.setNeutralMode(NeutralMode.Brake);
+    m_leftBack.setInverted(true);
+    m_leftFront.setInverted(true);
+    m_rightFront.setInverted(true);
     m_leftBack.configPeakOutputForward(PEAK_OUTPUT);
     m_rightBack.configPeakOutputForward(PEAK_OUTPUT);
     m_leftBack.configPeakOutputReverse(-PEAK_OUTPUT);

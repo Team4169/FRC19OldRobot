@@ -247,4 +247,8 @@ public class Vec2d {
     {
         return("(" + m_x + "," + m_y + ")");
     }
+
+    public String toPolarString() {
+        return("[r: " + getR() + ", theta: " + getTheta() + "]");
+    }
 }

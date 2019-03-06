@@ -38,6 +38,7 @@ import frc.commands.GetRouteToTarget;
 import frc.commands.GetRouteToRocketTarget;
 import frc.commands.VectorDriveFromDash;
 import frc.commands.DriveRouteToTarget;
+import frc.commands.ResetGyroCommand;
 import frc.commands.AbortCommand;
 
 /**
@@ -73,17 +74,16 @@ public class OI {
     m_driveAngle = SmartDashboard.getNumber("Drive Angle", m_driveAngle);
     m_driveDist = SmartDashboard.getNumber("Drive Dist", m_driveDist);
     m_driveVel = SmartDashboard.getNumber("Drive Vel", m_driveVel);
-    SmartDashboard.putNumber("Angle", Nav.yawToFieldAngle(nav.getYaw()));
 
     aBut = new JoystickButton(m_ctl, 1);
     bBut = new JoystickButton(m_ctl, 2);
     xBut = new JoystickButton(m_ctl, 3);
     yBut = new JoystickButton(m_ctl, 4);
     SmartDashboard.putData("Abort All", m_abortCmd);
-    aBut.whileHeld(new DriveLeftCommand(m_maxTime, dtr));
-    bBut.whileHeld(new DriveRightCommand(m_maxTime, dtr));
+    aBut.whenPressed(new VectorDriveFromDash(dtr, nav));
+    bBut.whenPressed(new ResetGyroCommand(nav));
     yBut.whenPressed(new GetRouteToTarget(nav, cam));
-    aBut.whileHeld(new DriveStraightCommand(m_maxTime, dtr));
+    aBut.whenPressed(new DriveRouteToTarget(dtr, nav, cam));
     xBut.whenPressed(m_abortCmd);
     SmartDashboard.putData("Drive Left", new DriveLeftCommand(m_maxTime, dtr));
     SmartDashboard.putData("Drive Right", new DriveRightCommand(m_maxTime, dtr));
@@ -92,6 +92,7 @@ public class OI {
     SmartDashboard.putData("RocketRte", new GetRouteToRocketTarget(nav, cam));
     SmartDashboard.putData("Drive to Target", new DriveRouteToTarget(dtr, nav, cam));
     SmartDashboard.putData("Vector Drive", new VectorDriveFromDash(dtr, nav));
+    SmartDashboard.putData("Reset gyro", new ResetGyroCommand(nav));
 
     dtr.setDefaultCommand(new DriveWithJoystick(dtr, m_ctl));
   }

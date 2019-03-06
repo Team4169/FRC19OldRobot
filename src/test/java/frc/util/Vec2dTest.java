@@ -288,6 +288,11 @@ public class Vec2dTest {
         System.out.println("toString");
         Vec2d instance = Vec2d.ZERO;
         String result = instance.toString();
+        System.out.println(result);
+        assertNotNull(result);
+        instance = Vec2d.makePolar(2.0d, Math.PI / 2.0d);
+        result = instance.toPolarString();
+        System.out.println(result);
         assertNotNull(result);
     }
 

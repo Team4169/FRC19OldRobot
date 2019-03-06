@@ -95,7 +95,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    SmartDashboard.putNumber("Yaw", m_nav.getYaw());
+    double yaw = m_nav.getYaw();
+    SmartDashboard.putNumber("Yaw", yaw);
+    SmartDashboard.putNumber("Angle", Nav.yawToFieldAngle(yaw));
    }
 
   /**
@@ -155,7 +157,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
-    SmartDashboard.putNumber("Yaw", m_nav.getYaw());
     Scheduler.getInstance().run();
   }
 
