@@ -66,9 +66,9 @@ public class GetRouteToTarget extends Command {
     RouteToTarget rte = m_calc.getRouteToTarget(tx, ty, m_roboVec, m_camVec,
         m_targNorm, Limelight.targetHeight, NORM_DIST);
     
-    System.out.println("Intercept: " + rte.getInterceptVec());
-    System.out.println("Norm:" + rte.getNormalVec());
-    System.out.println("Target:" + rte.getTargetDirectVec());
+    System.out.println("Intercept: " + rte.getInterceptVec().toPolarString());
+    System.out.println("Norm:" + rte.getNormalVec().toPolarString());
+    System.out.println("Target:" + rte.getTargetDirectVec().toPolarString());
 
 
   }
