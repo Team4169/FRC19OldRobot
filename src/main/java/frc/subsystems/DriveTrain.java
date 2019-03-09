@@ -198,7 +198,7 @@ public class DriveTrain extends Subsystem implements PIDOutput {
 
   public void startTurnToAngle(double degrees) {
     System.out.println("Start turn to angle " + degrees + " at yaw " + m_nav.getYaw());
-    m_kTargetAngleDegrees = degrees;
+    m_kTargetAngleDegrees = Nav.fieldAngleToYaw(degrees);
     m_turnController.setSetpoint(m_kTargetAngleDegrees);
     m_rotateToAngleRate = 0; // This value will be updated in the pidWrite() method.
     m_turnController.enable();

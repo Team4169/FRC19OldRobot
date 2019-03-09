@@ -37,6 +37,23 @@ public class Nav extends Subsystem {
   }
 
   /**
+   * Convert a field-relative angle in degrees (0 pointing along the X axis,
+   * value in the range -180.0 <= angle <= 180.0) to a yaw as used by the gyro
+   * (0 pointing along the y axis).  Result will be in the range -180.0 .. 180.0
+   * @param angle Field-relative angle in degrees, -180 .. 180
+   * @return Yaw in degrees, -180 .. 180
+   */
+  public static double fieldAngleToYaw(double angle) {
+    double yaw = 90.0d - angle;
+    if (yaw > 180.0d) {
+      yaw = yaw - 360.0d;
+    } else if (yaw < -180.0d) {
+      yaw = yaw + 360.0d;
+    }
+    return yaw;
+  }
+
+  /**
    * Convert robot yaw from the compass (in degrees, 0 meaning pointing along the Y axis
    * field-relative) to a field-relative angle in degrees (0 pointing along the X axis).
    * Result will be in the range -180..180.
@@ -45,7 +62,7 @@ public class Nav extends Subsystem {
    */
   public static double yawToFieldAngle(double yaw) {
 
-    double fieldAngle = 90.0 - yaw;
+    double fieldAngle = 90.0d - yaw;
     if (fieldAngle > 180.0d) {
         fieldAngle = fieldAngle - 360.0;
     } else if (fieldAngle < -180.0d) { // shouldn't happen
